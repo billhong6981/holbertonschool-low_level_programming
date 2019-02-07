@@ -3,13 +3,15 @@
 /**
  * main - Entry point
  *
- * The function will print out a string
- * Return 0 on sucess
+ * The function will output a string
+ * Return: Always 0 (Success)
  */
 int main(void)
 {
-  char *a = "\"Programming is like building a multilingual puzzle";
+char *a = "\"Programming is like building a multilingual puzzle";
 
-  puts(a);
-  return (0);
+puts(a);
+
+return (0);
+
 }
