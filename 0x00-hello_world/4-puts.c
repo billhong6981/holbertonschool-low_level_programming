@@ -1,13 +1,14 @@
 #include <stdio.h>
 
 /**
- *main - output a string
+ * main - Entry point
  *
- *return 0 on sucess
+ * The function will print out a string
+ * Return 0 on sucess
  */
-int main(void)   /* the function will return int 0 on success */
+int main(void)
 {
-  char *a = "\"Programming is like building a multilingual puzzle";
+  char *a = "\"Programming is like building a multilingual puzzle\n";
 
   puts(a);
   return (0);
