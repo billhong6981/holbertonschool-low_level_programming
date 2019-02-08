@@ -7,9 +7,9 @@
  */
 int main(void)
 {
-char ch, new_line;
+  char ch, new_line;
 
-new_line = "\n";
+new_line = '\n';
 for (ch = 'a' ; ch <= 'z' ; ch++)
 {
 putchar(ch);
