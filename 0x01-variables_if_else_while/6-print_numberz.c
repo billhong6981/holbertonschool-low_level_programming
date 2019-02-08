@@ -8,11 +8,10 @@
 int main(void)
 {
 int num;
-char str[10];
+char *str = "0123456789";
 
 for (num = 0 ; num <= 9 ; num++)
 {
-str[num] = num;
 putchar(str[num]);
 }
 putchar('\n');
