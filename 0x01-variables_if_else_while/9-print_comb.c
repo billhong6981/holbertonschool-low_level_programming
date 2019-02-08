@@ -8,7 +8,7 @@
 int main(void)
 {
 int num;
-char *str = "0123456789";
+char* str = "0123456789";
 
 for (num = 0 ; num <= 9 ; )
 {
