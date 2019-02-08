@@ -7,14 +7,12 @@
  */
 int main(void)
 {
-int num;
-char* str;
-str = "0123456789";
+char num;
 
-for (num = 0 ; num <= 9 ; )
+for (num = '0' ; num <= '9' ; )
 {
-putchar(str[num]);
-if (num <= 8)
+putchar(num);
+if (num <= '8')
 {
 putchar(',');
 putchar(' ');
