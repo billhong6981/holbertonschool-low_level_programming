@@ -1,13 +1,12 @@
 #include "holberton.h"
 
 /**
-  * Main -- Program Entry Point
-  * Print "Holberton" string
+  * main - prints the string "Holberton"
   *
-  * Return 0 (on success)
+  * Return: 0 on success.
   */
 
-int main (void)
+int main(void)
 {
 	char *str;
 	int i;
