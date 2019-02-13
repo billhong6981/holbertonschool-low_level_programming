@@ -9,26 +9,21 @@
 
 int main(void)
 {
-	int a, b, c;
+	int a, b;
 
-	for (a = '0' ; a <= '7' ; )
+	for (a = '0' ; a <= '8' ; )
 	{
-		for (b = '0' ; b <= '8' ; )
+		for (b = '0' ; b <= '9' ; )
 		{
-			for (c = '0' ; c <= '9' ; )
+			if (a < b)
 			{
-				if (a < b && b < c)
+				putchar(a);
+				putchar(b);
+				if (!(a == '8' && b == '9'))
 				{
-					putchar(a);
-					putchar(b);
-					putchar(c);
-					if (!(a == '7' && b == '8' && c == '9'))
-					{
-						putchar(',');
-						putchar(' ');
-					}
+					putchar(',');
+					putchar(' ');
 				}
-				c++;
 			}
 			b++;
 		}
