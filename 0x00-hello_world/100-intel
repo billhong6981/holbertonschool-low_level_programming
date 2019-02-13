@@ -1,2 +1,2 @@
 #/bin/bash
-gcc -S -masm=intel $CFILE
+gcc -S $CFILE > $(echo $CFILE | tr -d '0-' | tr 'c' 's')
