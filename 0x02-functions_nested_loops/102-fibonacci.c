@@ -7,8 +7,8 @@ int main(void)
 {
 	unsigned long n, i, j, fibo;
 
-	i = 1;
-	j = 2;
+	i = 0;
+	j = 1;
 	for (n = 0; n < 50; n++)
 	{
 		fibo = i + j;
@@ -19,7 +19,7 @@ int main(void)
 			putchar('\n');
 		else
 		{
-			puts(", ");
+			printf(", ");
 		}
 	}
 	return (0);
