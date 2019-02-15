@@ -8,44 +8,27 @@
 
 void print_number(int n)
 {
-	int i, j, m, tens;
+	int i, j, temp, tens;
 
-	i = 0;
+	i = 1;
+	tens = 1;
 	if (n < 0)
 	{
 		n *= -1;
 		_putchar('-');
 	}
-	m = n;
-	if (n >= 0 && n <= 9)
+	temp = n;
+	while (temp >= 10)
 	{
-		_putchar(n + '0');
+		temp = temp / 10;
+		i++;
 	}
-	else
+	for (j = 1; j < i; j++)
+		tens = tens * 10;
+	while (tens > 1)
 	{
-		while (m != 0)
-		{
-			m = m / 10;
-			++i;
-		}
-		while (n >= 10)
-		{
-			j = i;
-			tens = 1;
-			while (j > 1)
-			{
-				tens = tens * 10;
-				--j;
-			}
-			_putchar(n / tens + '0');
-			n = n % tens;
-			if (n < (tens / 10))
-			{
-				_putchar('0');
-				--i;
-			}
-			--i;
-		}
-		_putchar(n + '0');
+		_putchar((n / tens) % 10 + '0');
+		tens /= 10;
 	}
+	_putchar(n % 10 + '0');
 }
