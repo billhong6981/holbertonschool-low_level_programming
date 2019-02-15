@@ -8,7 +8,8 @@
 
 void print_number(int n)
 {
-	int i, j, temp, tens;
+	unsigned int temp1, temp2;
+	int i, j, tens;
 
 	i = 1;
 	tens = 1;
@@ -17,18 +18,19 @@ void print_number(int n)
 		n *= -1;
 		_putchar('-');
 	}
-	temp = n;
-	while (temp >= 10)
+	temp1 = n;
+	temp2 = n;
+	while (temp1 >= 10)
 	{
-		temp = temp / 10;
+		temp1 = temp1 / 10;
 		i++;
 	}
 	for (j = 1; j < i; j++)
 		tens = tens * 10;
 	while (tens > 1)
 	{
-		_putchar((n / tens) % 10 + '0');
+		_putchar((temp2 / tens) % 10 + '0');
 		tens /= 10;
 	}
-	_putchar(n % 10 + '0');
+	_putchar(temp2 % 10 + '0');
 }
