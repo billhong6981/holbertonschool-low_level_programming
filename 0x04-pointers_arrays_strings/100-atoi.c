@@ -9,9 +9,13 @@
 
 int _atoi(char *s)
 {
-	int i, sign, int_num, catch_it;
+	int i, sign;
+	short catch_it;
+	int int_num;
 
-	i = int_num = catch_it = 0;
+	i = 0;
+	int_num = 0;
+	catch_it = 0;
 	sign = 1;
 
 	while (s[i] != '\0')
