@@ -1,5 +1,3 @@
-#include "holberton.h"
-
 /**
  * _atoi - a function that convert a string to an integer.
  * @s: a pointer that points to string
@@ -9,12 +7,10 @@
 
 int _atoi(char *s)
 {
-	int i, sign;
-	short catch_it;
-	int int_num;
+	int i, int_num;
+	short sign, catch_it;
 
-	i = 0;
-	int_num = 0;
+	i = int_num = 0;
 	catch_it = 0;
 	sign = 1;
 
