@@ -19,7 +19,7 @@ char *cap_string(char *str)
 			if (str[i] == delimitor[j])
 			{
 				i++;
-				if (str[i] > 'a' && str[i] < 'z')
+				if (str[i] >= 'a' && str[i] <= 'z')
 					str[i] -= 32;
 				else
 					j = 0;
