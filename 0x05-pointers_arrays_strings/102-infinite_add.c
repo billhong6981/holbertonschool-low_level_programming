@@ -1,5 +1,10 @@
 #include "holberton.h"
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+void _strrev(char *str);
+
 /**
  * infinite_add - a function that adds two numbers
  * @n1: a pointer to first input string
@@ -12,28 +17,90 @@
 
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int i, j, n;
+	char *str1, *str2;
+	int i, m, carry, len;
 
-	i = j = n = 0;
-	/* if r[0] >= 10, set value to 1 & increase buffer size by 1*/
-	if ((n1[0] - '0') + (n2[0] - '0') >= 10)
+	str1 = (char *)malloc(strlen(n1) + 1);
+	str2 = (char *)malloc(strlen(n2) + 1);
+	assert(str1 != NULL);
+	assert(str2 != NULL);
+	i = m = carry = 0;
+	if (strlen(n1) > strlen(n2))
 	{
-		r[0] = 1 + '0';
-		j = 1;
+		strcpy(str1, n1);
+		strcpy(str2, n2);
 	}
-	while (i < size_r && (n1[i] != '\0' || n2[i] != '\0' || r[j] != '\0'))
+	else
 	{
-		if ((n1[i + 1] - '0') + (n2[i + 1] - '0') >= 10)
-			n = 1;
+		strcpy(str1, n2);
+		strcpy(str2, n1);
+	}
+	len = strlen(str1);
+	if (len + 1 > size_r)
+	{
+		r = '\0';
+		return (r);
+	}
+	else
+	{
+		_strrev(str1);
+		_strrev(str2);
+		m = str1[0] - '0' + str2[0] - '0';
+		if (m >= 10)
+			carry = 1;
+		r[0] = m % 10 + '0';
+		for (i = 1; str2[i] != '\0'; i++)
+		{
+			m = str1[i] - '0' + str2[i] - '0' + carry;
+			if (m >= 10)
+				carry = 1;
+			else
+				carry = 0;
+			r[i] = m % 10 + '0';
+		}
+		for ( ; str1[i] != '\0'; i++)
+		{
+			m = str1[i] - '0' + carry;
+			if (m >= 10)
+				carry = 1;
+			else
+				carry = 0;
+			r[i] = m % 10 + '0';
+		}
+		if (carry == 1 && (len + 1 >= size_r))
+		{
+			r = '\0';
+			return (r);
+		}
+		else if (carry == 1 && (len + 1 < size_r))
+		{
+			r[i] = carry + '0';
+			r[++i] = '\0';
+		}
 		else
-			n = 0;
-		r[j] = (n1[i] - '0') + (n2[i] - '0') + n;
-		r[j] = r[j] % 10 + '0';
-		i++;
-		j++;
-		if (n1[i] == '\0' || n2[i] == '\0')
-			r[j] = '\0';
+		{
+			r[i] = '\0';
+		}
+		_strrev(r);
+		free (str1);
+		free (str2);
+		return (r);
 	}
-	r[j] = '\0';
-	return (r);
+}
+
+void _strrev(char *str)
+{
+	int i, j;
+	char temp;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	i--;
+	for (j = 0; j < i; j++, i--)
+	{
+		temp = str[j];
+		str[j] = str[i];
+		str[i] = temp;
+	}
 }
