@@ -5,7 +5,7 @@
  * @s: a pointer point to string
  * @c: a constant character search for.
  *
- * Return: the pointer that the character at the string (in success) or NULL for not found.
+ * Return: the pointer that the string (in success) or NULL for not found.
  */
 
 char *_strchr(char *s, char c)
@@ -16,5 +16,6 @@ char *_strchr(char *s, char c)
 			return (s);
 		s++;
 	}
+	s = '\0';
 	return (s);
 }
