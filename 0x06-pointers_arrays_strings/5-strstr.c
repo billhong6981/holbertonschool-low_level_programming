@@ -1,6 +1,4 @@
 #include "holberton.h"
-#include <stdlib.h>
-#include <assert.h>
 unsigned int _strcmp(char *needle, char *newstr, unsigned int len_n);
 void _strcpy(char *dest, char *src, unsigned int len_n);
 
@@ -15,29 +13,21 @@ void _strcpy(char *dest, char *src, unsigned int len_n);
 char *_strstr(char *haystack, char *needle)
 {
 	unsigned int len_n, len_h, i, cmp;
-	char *newstr;
+	char newstr[100];
 
 	len_n = len_h = 0;
 	while (needle[len_n] != '\0')
 		len_n++;
 	while (haystack[len_h] != '\0')
 		len_h++;
-	newstr = (char *)malloc(len_n + 1);
-	assert(len_h == 12);
-	assert(len_n == 5);
-	assert(newstr != NULL);
 	for (i = 0; i < (len_h - len_n) + 1; i++)
 	{
 		_strcpy(newstr, haystack, len_n);
 		cmp = _strcmp(needle, newstr, len_n);
 		if (cmp == 1)
-		{
-			free(newstr);
 			return (haystack);
-		}
 		haystack++;
 	}
-	free(newstr);
 	return ('\0');
 }
 
