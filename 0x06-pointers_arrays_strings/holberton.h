@@ -8,4 +8,6 @@ char *_strstr(char *haystack, char *needle);
 void print_chessboard(char (*a)[8]);
 void print_diagsums(int *a, int size);
 void set_string(char **s, char *to);
+unsigned int _strcmp(char *needle, char *newstr, unsigned int len_n);
+void _strcpy(char *dest, char *src, unsigned int len_n);
 #define NULL 0
