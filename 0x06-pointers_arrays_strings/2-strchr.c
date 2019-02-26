@@ -1,5 +1,3 @@
-#include "holberton.h"
-
 /**
  * _strchr - a function that locates a character in string.
  * @s: a pointer point to string
