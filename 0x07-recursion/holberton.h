@@ -11,3 +11,6 @@ int wildcmp(char *s1, char *s2);
 int natural_root(int x, int n);
 int _base_number(int base, int n);
 int compare_str(char *str, int i, int len);
+int find_wildcard(char *str);
+int compare_wildcard(char *str1, char *str2);
+int compare_no_wildcard(char *str1, char *str2);
