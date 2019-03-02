@@ -18,5 +18,3 @@ char *_strchr(char *s, char c);
 unsigned int _strspn(char *s, char *accept);
 char *_strpbrk(char *s, char *accept);
 char *_strstr(char *haystack, char *needle);
-unsigned int _sstrcmp(char *needle, char *newstr, unsigned int len_n);
-void _sstrcpy(char *dest, char *src, unsigned int len_n);
