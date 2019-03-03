@@ -2,7 +2,8 @@
 #0x08-static_libraries
 
 Learning Objectives:
-What is a static library, how does it work, how to create one, and how to use it
+What is a static library, how does it work, how to create one,
+and how to use it
 Basic usage of ar, ranlib, nm
 
 Task0 -- Create the static library libholberton.a
