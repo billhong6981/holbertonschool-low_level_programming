@@ -12,9 +12,9 @@
 
 int main(int argc, char **argv)
 {
-	int change, n25, n10, n5;
+	int change, n25, n10, n5, n2;
 
-	n25 = n10 = n5 = 0;
+	n25 = n10 = n5 = n2 = 0;
 	if (argc != 2)
 	{
 		printf("Error\n");
@@ -41,6 +41,11 @@ int main(int argc, char **argv)
 		n5 = change / 5;
 		change = change % 5;
 	}
-	printf("%d\n", n25 + n10 + n5 + change);
+	if (change >= 2)
+	{
+		n2 = change / 2;
+		change = change % 2;
+	}
+	printf("%d\n", n25 + n10 + n5 + n2 + change);
 	return (0);
 }
