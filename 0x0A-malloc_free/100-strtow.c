@@ -66,6 +66,7 @@ char **strtow(char *str)
 			}
 			i++;
 		}
+		p[w_c] = malloc(i - ch_c);
 	}
 	p[words] = NULL;
 
