@@ -1,7 +1,6 @@
 #include "holberton.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
 /**
  * strtow - a function that splits a string into words
@@ -12,10 +11,11 @@
 
 char **strtow(char *str)
 {
-	int w_c, ch_c, words, n, i, j;
+	int len, w_c, ch_c, words, n, i, j;
 	char **p, *str1;
 
-	str1 = (char *)malloc(strlen(str) + 1);
+	len = string_len(str);
+	str1 = (char *)malloc(len + 1);
 	if (!*str)
 		return (NULL);
 	/** delete the space in string  **/
@@ -82,4 +82,25 @@ char **strtow(char *str)
 		p[i][n] = '\0';
 	}
 	return (p);
+}
+
+/**
+ * string_len - a function counts the string length
+ * @str: a pointer point to string
+ *
+ * Return: return the length of the string. or 0 on fail
+ */
+
+int string_len(char *str)
+{
+	int len;
+
+	if (!*str)
+		return (0);
+	len = 1;
+	while(*str)
+	{
+		len++;
+	}
+	return (len);
 }
