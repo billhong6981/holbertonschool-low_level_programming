@@ -137,6 +137,7 @@ char **strtow(char *str)
 	ptr = mem_alloc(str1);
 	if (ptr == NULL)
 		return (NULL);
+	free (str1);
 	return (ptr);
 }
 
