@@ -3,22 +3,17 @@
 #include <stdio.h>
 
 /**
- * strtow - a function that splits a string into words
- * @str: pointer point to string
+ * truncate_extra_spaces - a function that deletes extra spaces
+ * @str: a pointer point to string
+ * @str1: a pointer point to new string after truncation of extra spaces
  *
- * Return: double pointer to words, return NULL if fail
+ * Return: return pointer to string, NULL if fail
  */
 
-char **strtow(char *str)
+char *truncate_extra_spaces(char *str1, char *str)
 {
-	int len, w_c, ch_c, words, n, i, j;
-	char **p, *str1;
+	int i, j;
 
-	len = string_len(str);
-	str1 = (char *)malloc(len + 1);
-	if (!*str)
-		return (NULL);
-	/** delete the space in string  **/
 	for (i = 0, j = 0; str[i] != '\0'; i++)
 	{
 		if (str[i] != ' ' && j == 0)
@@ -42,7 +37,21 @@ char **strtow(char *str)
 		}
 	}
 	str1[j] = '\0';
-        /** splits string into words and allocate the memory for it **/
+	return (str1);
+}
+
+/**
+ * mem_alloc - splits string into words and allocate the memory for it
+ * @str1: a pointer point to string
+ *
+ * Return: return pointer of the two dimemsion of arrays, NULL if fail
+ */
+
+char **mem_alloc(char *str1)
+{
+	int i, j, n, words, ch_c, w_c;
+	char **p;
+
 	for (i = 0, words = 1; str1[i] != '\0'; i++)
 	{
 		if (str1[i] == ' ')
@@ -60,6 +69,12 @@ char **strtow(char *str)
 			{
 				ch_c = i - ch_c;
 				p[w_c] = malloc(ch_c + 1);
+				if (p[w_c] == NULL)
+				{
+					for (j = 0; j <= w_c; j++)
+						free(p[j]);
+					return (NULL);
+				}
 				ch_c = i;
 				i++;
 				break;
@@ -69,8 +84,11 @@ char **strtow(char *str)
 		p[w_c] = malloc(i - ch_c);
 	}
 	p[words] = NULL;
-
-	/** stored words in array **/
+	for (i = 0, words = 1; str1[i] != '\0'; i++)
+	{
+		if (str1[i] == ' ')
+			++words;
+	}
 	j = 0;
 	for (i = 0; i < words && str1[j] != '\0'; i++)
 	{
@@ -85,6 +103,42 @@ char **strtow(char *str)
 }
 
 /**
+ * strtow - a function that splits a string into words
+ * @str: pointer point to string
+ *
+ * Return: double pointer to words, return NULL if fail
+ */
+
+char **strtow(char *str)
+{
+	int len;
+	char **ptr;
+	char *str1;
+
+	/** get the length of the original string **/
+	len = string_len(str);
+	if (len == 0)
+		return (NULL);
+
+	/** delete the extra spaces and make a new string **/
+	str1 = (char *)malloc(len + 1);
+	if (str1 == NULL)
+		return (NULL);
+	str1 = truncate_extra_spaces(str1, str);
+	if (str1 == NULL)
+	{
+		free (str1);
+		return (NULL);
+	}
+
+	/** splits a string into words and allocate memories for them **/
+	ptr = mem_alloc(str1);
+	if (ptr == NULL)
+		return (NULL);
+	return (ptr);
+}
+
+/**
  * string_len - a function counts the string length
  * @str: a pointer point to string
  *
@@ -93,14 +147,11 @@ char **strtow(char *str)
 
 int string_len(char *str)
 {
-	int len;
+	int i, len;
 
 	if (!*str)
 		return (0);
-	len = 1;
-	while(*str)
-	{
-		len++;
-	}
+	for (i = 0, len = 0; str[i] != '\0'; i++, len++)
+		;
 	return (len);
 }

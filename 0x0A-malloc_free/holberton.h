@@ -7,3 +7,5 @@ char *argstostr(int ac, char **av);
 char **strtow(char *str);
 int _putchar(char c);
 int string_len(char *str);
+char *truncate_extra_spaces(char *str1, char *str);
+char **mem_alloc(char *str1);
