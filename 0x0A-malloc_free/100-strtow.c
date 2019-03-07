@@ -116,9 +116,9 @@ char **strtow(char *str)
 	char *str1;
 
 	/** get the length of the original string **/
-	len = string_len(str);
-	if (len == 0)
+	if (str == NULL || *str == '\0')
 		return (NULL);
+	len = string_len(str);
 
 	/** delete the extra spaces and make a new string **/
 	str1 = (char *)malloc(len + 1);
