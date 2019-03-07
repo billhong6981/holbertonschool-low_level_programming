@@ -36,6 +36,8 @@ char *truncate_extra_spaces(char *str1, char *str)
 			j++;
 		}
 	}
+	if (j == 0)
+		return (NULL);
 	str1[j] = '\0';
 	return (str1);
 }
