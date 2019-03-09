@@ -1,7 +1,5 @@
 #include "holberton.h"
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 
 /**
  * main - a function that multiplies two positive numbers
@@ -201,7 +199,7 @@ int check_0_9(char *str)
 	int i, len;
 
 	len = string_len(str);
-	for (i = 1; i < len; i++)
+	for (i = 0; i < len; i++)
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (0);
