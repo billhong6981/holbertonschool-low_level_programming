@@ -13,24 +13,30 @@
 
 int main(int argc, char *argv[])
 {
-	int i, j, m, len1, len2, tmp, carry, flag1, flag2;
-	char *str1, *str2, *temp1, *temp2, *mul;
+	int i, j, m, len, len1, len2, tmp, carry, flag1, flag2;
+	char *er, *str1, *str2, *temp1, *temp2, *mul;
 
+	er = "Error";
 	carry = tmp = m = 0;
 	if (argc != 3)
 	{
-		printf("Error\n");
+		for (i = 0; er[i] != '\0'; i++)
+			_putchar(er[i]);
+		_putchar('\n');
 		exit(98);
 	}
 	flag1 = check_0_9(argv[1]);
 	flag2 = check_0_9(argv[2]);
 	if (flag1 == 0 || flag2 == 0)
 	{
-		printf("Error\n");
+		for (i = 0; er[i] != '\0'; i++)
+			_putchar(er[i]);
+		_putchar('\n');
 		exit(98);
 	}
 	len1 = string_len(argv[1]);
 	len2 = string_len(argv[2]);
+	len = len1 + len2;
 	if (len1 >= len2)
 	{
 		str1 = malloc(sizeof(char) * len1 + 1);
@@ -54,7 +60,10 @@ int main(int argc, char *argv[])
 		free(temp1);
 		free(temp2);
 		free(mul);
-		printf("Error\n");
+		for (i = 0; er[i] != '\0'; i++)
+			_putchar(er[i]);
+		_putchar('\n');
+
 		exit(98);
 	}
 	/** str1 always longer than str2 **/
@@ -73,7 +82,10 @@ int main(int argc, char *argv[])
 	}
 	for (i = 0; i < (len1 + 2); i++)
 		temp1[i] = '\0';
-
+	for (i = 0; i < (len1 + 2); i++)
+		temp2[i] = '\0';
+	for (i = 0; i < len + 1; i++)
+		mul[i] = '\0';
 	/** reverse the string **/
 	_strrev(str1);
 	_strrev(str2);
@@ -125,7 +137,9 @@ int main(int argc, char *argv[])
 	mul[j] = '\0';
 	/** revert mul[]   **/
 	_strrev(mul);
-	printf("%s\n", mul);
+	for (i = 0; mul[i] != '\0'; i++)
+		_putchar(mul[i]);
+	_putchar('\n');
 	free(str1);
 	free(str2);
 	free(temp1);
@@ -232,12 +246,17 @@ char *infinite_add(char *str1, char *str2)
 	str2[0] = m % 10 + '0';
 	for (i = 1; i < len; i++)
 	{
-		m = str1[i] - '0' + str2[i] - '0' + carry;
-		if (m >= 10)
-			carry = 1;
-		else
-			carry = 0;
-		str2[i] = m % 10 + '0';
+		if (str1[i] != '\0' && str2[i] != '\0')
+		{
+			m = str1[i] - '0' + str2[i] - '0' + carry;
+			if (m >= 10)
+				carry = 1;
+			else
+				carry = 0;
+			str2[i] = m % 10 + '0';
+		}
+		if (str1[i] != '\0' && str2[i] == '\0')
+			str2[i] = str1[i];
 	}
 	return (str2);
 }
