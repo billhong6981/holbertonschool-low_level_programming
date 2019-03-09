@@ -1,21 +1,22 @@
 #include "holberton.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 /**
  * main - a function that multiplies two positive numbers
- * @
- * @
+ * @argc: numbers of argument
+ * @argv: arrays of arguments
  *
- *
- * Return:
+ * Return: return 0 on sucess, 1 if fail
  */
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	int len1, len2, flag1, flag2;
-	char *str1, *str2;
+	int i, j, m, len1, len2, tmp, carry, flag1, flag2;
+	char *str1, *str2, *temp1, *temp2, *mul;
 
+	carry = tmp = m = 0;
 	if (argc != 3)
 	{
 		printf("Error\n");
@@ -34,16 +35,25 @@ int main(int argc, char **argv)
 	{
 		str1 = malloc(sizeof(char) * len1 + 1);
 		str2 = malloc(sizeof(char) * len2 + 1);
-		mul = malloc(sizeof(char) * (len1 +len2 + 1));
+		temp1 = malloc(sizeof(char) * len1 + 2);
+		temp2 = malloc(sizeof(char) * len1 + 2);
+		mul = malloc(sizeof(char) * (len1 + len2 + 1));
 	}
 	else
 	{
 		str1 = malloc(sizeof(char) * len2 + 1);
 		str2 = malloc(sizeof(char) * len1 + 1);
-		mul = malloc(sizeof(char) * (len1 +len2 + 1));
+		temp1 = malloc(sizeof(char) * len2 + 2);
+		temp2 = malloc(sizeof(char) * len2 + 2);
+		mul = malloc(sizeof(char) * (len1 + len2 + 1));
 	}
-	if (str1 == NULL || str2 == NULL || mul == NULL)
+	if (str1 == NULL || str2 == NULL || mul == NULL || temp1 == NULL || temp2 == NULL)
 	{
+		free(str1);
+		free(str2);
+		free(temp1);
+		free(temp2);
+		free(mul);
 		printf("Error\n");
 		exit(98);
 	}
@@ -57,12 +67,73 @@ int main(int argc, char **argv)
 	{
 		str1 = _strcpy(str1, argv[2]);
 		str2 = _strcpy(str2, argv[1]);
+		tmp = len1;
+		len1 = len2;
+		len2 = tmp;
 	}
+	for (i = 0; i < (len1 + 2); i++)
+		temp1[i] = '\0';
+
 	/** reverse the string **/
 	_strrev(str1);
 	_strrev(str2);
+	for (j = 0; j < len2; j++)
+	{
+		carry = 0;
+		for (i = 0; i < len1; i++)
+		{
+			if (j == 0)
+			{
+				m = (str1[i] - '0') * (str2[j] - '0');
+				tmp = m % 10 + carry;
+				temp2[i] = tmp % 10 + '0';
+				carry = tmp / 10 + m / 10;
+			}
+			else
+			{
+				m = (str1[i] - '0') * (str2[j] - '0');
+				tmp = m % 10 + carry;
+				temp1[i] = tmp % 10 + '0';
+				carry = tmp / 10 + m / 10;
+			}
+		}
+		if (carry != 0 && j == 0)
+		{
+			temp2[i] = carry + '0';
+			temp2[++i] = '\0';
+		}
+		if (carry == 0 && j == 0)
+			temp2[i] = '\0';
+		if (carry != 0 && j != 0)
+		{
+			temp1[i] = carry + '0';
+			temp1[++i] = '\0';
+		}
+		if (carry == 0 && j != 0)
+			temp1[i] = '\0';
+		mul[j] = temp2[0];
 
+		/** temp2[] shift one digit to left **/
+		temp2 = shift_left(temp2);
+
+		/** temp2[] = temp1[] + temp2[] **/
+		temp2 = infinite_add(temp1, temp2);
+	}
+	/** append temp[] to mul[] **/
+	for (i = 0; temp2[i] != '\0'; j++, i++)
+		mul[j] = temp2[i];
+	mul[j] = '\0';
+	/** revert mul[]   **/
+	_strrev(mul);
+	printf("%s\n", mul);
+	free(str1);
+	free(str2);
+	free(temp1);
+	free(temp2);
+	free(mul);
+	return (0);
 }
+
 /**
 * string_len - a function counts the string length
 * @str: a pointer point to string
@@ -76,7 +147,8 @@ int string_len(char *str)
 
 	if (!*str)
 		return (0);
-	for (i = 0, len = 0; str[i] != '\0'; i++, len++);
+	for (i = 0, len = 0; str[i] != '\0'; i++, len++)
+		;
 	return (len);
 }
 
@@ -117,10 +189,57 @@ int check_0_9(char *str)
 	len = string_len(str);
 	for (i = 1; i < len; i++)
 	{
-		if (str[i] < '0' || argv[i][j] > '9')
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
 	}
 	return (1);
+}
+
+/**
+ * shift_left - a function that shifts the string one digit left.
+ * @dest: a pointer point to string
+ *
+ * Return: return a pointer that point to char
+ */
+
+char *shift_left(char *dest)
+{
+	int i;
+
+	for (i = 1; dest[i] != '\0'; i++)
+		dest[i - 1] = dest[i];
+	dest[i-1] = dest[i];
+	return (dest);
+}
+
+/**
+ * infinite_add - a function that add two string together
+ * @str1: string one
+ * @str2: string two
+ *
+ * Return: return a pointer to string2
+ */
+
+char *infinite_add(char *str1, char *str2)
+{
+	int i, m, carry, len;
+
+	len = sizeof(str1);
+	i = m = carry = 0;
+	m = str1[0] - '0' + str2[0] - '0';
+	if (m >= 10)
+		carry = 1;
+	str2[0] = m % 10 + '0';
+	for (i = 1; i < len; i++)
+	{
+		m = str1[i] - '0' + str2[i] - '0' + carry;
+		if (m >= 10)
+			carry = 1;
+		else
+			carry = 0;
+		str2[i] = m % 10 + '0';
+	}
+	return (str2);
 }
 
 /**
