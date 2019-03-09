@@ -184,7 +184,7 @@ void _strrev(char *str)
  */
 int check_0_9(char *str)
 {
-	int i, j, len;
+	int i, len;
 
 	len = string_len(str);
 	for (i = 1; i < len; i++)
@@ -208,7 +208,7 @@ char *shift_left(char *dest)
 
 	for (i = 1; dest[i] != '\0'; i++)
 		dest[i - 1] = dest[i];
-	dest[i-1] = dest[i];
+	dest[i - 1] = dest[i];
 	return (dest);
 }
 
