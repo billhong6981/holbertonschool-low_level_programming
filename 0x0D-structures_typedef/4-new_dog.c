@@ -12,48 +12,30 @@
 
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *your_dog;
+	int nlen, olen, i;
+	dog_t *doggy;
 
-	your_dog = malloc(sizeof(dog_t));
-	if (your_dog == NULL)
-		return (NULL);
-	your_dog->name = _strdup(name);
-	if (your_dog == NULL)
-		return (NULL);
-	your_dog->age = age;
-	your_dog->owner = _strdup(owner);
-	if (your_dog == NULL)
-		return (NULL);
-	return (your_dog);
-}
-
-/**
- * _strdup - a function that copies a string into a new buffer
- * @str: a pointer point to the string
- *
- * Return: pointer point to the buffer
- */
-
-char *_strdup(char *str)
-{
-	char *p;
-	unsigned int len, j;
-
-	if (str == NULL)
-	return (NULL);
-	for (len = 0; str[len] != '\0'; len++)
+	nlen = olen = 0;
+	while (name[nlen++])
 		;
-	len++;
-	if (len < 1)
+	while (owner[olen++])
+		;
+	doggy = malloc(sizeof(dog_t));
+	if (doggy == NULL)
 		return (NULL);
-	p = malloc(len);
-	if (p == NULL)
-	{
-		free(p);
+
+	doggy->name = malloc(nlen * sizeof(doggy->name));
+	if (doggy == NULL)
 		return (NULL);
-	}
-	for (j = 0; j < len; j++)
-		p[j] = str[j];
-	p[j] = '\0';
-	return (p);
+	for (i = 0; i < nlen; i++)
+		doggy->name[i] = name[i];
+
+	doggy->age = age;
+
+	doggy->owner = malloc(olen * sizeof(doggy->owner));
+	if (doggy == NULL)
+		return (NULL);
+	for (i = 0; i < olen; i++)
+		doggy->owner[i] = owner[i];
+	return (doggy);
 }
