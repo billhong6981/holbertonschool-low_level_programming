@@ -13,17 +13,25 @@
 dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *your_dog;
-        your_dog = malloc(sizeof(dog_t));
-        your_dog->name = _strdup(name);
-	your_dog->age = age;
-        your_dog->owner = _strdup(owner);
-        if (your_dog == NULL || your_dog->name == NULL || your_dog->owner == NULL)
-	{
-                free(your_dog);
+
+	your_dog = malloc(sizeof(dog_t));
+	if (your_dog == NULL)
 		return (NULL);
-        }
-	else
-		return (your_dog);
+	your_dog->name = _strdup(name);
+	if (your_dog->name == NULL)
+	{
+		free(your_dog);
+		return (NULL);
+	}
+	your_dog->age = age;
+	your_dog->owner = _strdup(owner);
+	if (your_dog->owner == NULL)
+	{
+		free(your_dog->name);
+		free(your_dog);
+		return (NULL);
+	}
+	return (your_dog);
 }
 
 /**
@@ -35,24 +43,24 @@ dog_t *new_dog(char *name, float age, char *owner)
 
 char *_strdup(char *str)
 {
-char *p;
-unsigned int len, j;
+	char *p;
+	unsigned int len, j;
 
-if (str == NULL)
+	if (str == NULL)
 	return (NULL);
-for (len = 0; str[len] != '\0'; len++)
-	;
-len++;
-if (len < 1)
-	return (NULL);
-p = malloc(len);
-if (p == NULL)
-{
-free(p);
-return (NULL);
-}
-for (j = 0; j < len; j++)
-	p[j] = str[j];
-p[j] = '\0';
-return (p);
+	for (len = 0; str[len] != '\0'; len++)
+		;
+	len++;
+	if (len < 1)
+		return (NULL);
+	p = malloc(len);
+	if (p == NULL)
+	{
+		free(p);
+		return (NULL);
+	}
+	for (j = 0; j < len; j++)
+		p[j] = str[j];
+	p[j] = '\0';
+	return (p);
 }
