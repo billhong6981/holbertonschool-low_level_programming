@@ -10,10 +10,6 @@
 
 void print_name(char *name, void (*f)(char *))
 {
-	if (name == NULL)
-	{
-		printf("Error\n");
-		exit(-1);
-	}
-	f(name);
+	if (name != NULL)
+		f(name);
 }
