@@ -9,13 +9,13 @@ element of an array.
 *
 * Return: void
 */
-
 void array_iterator(int *array, size_t size, void (*action)(int))
 {
-	unsigned int i;
-	void (*fun_prt)(int);
+	size_t i = -1;
 
-	fun_prt = action;
-	for (i = 0; i < size; i++)
-		fun_prt(array[i]);
+	if (array && action)
+	{
+		while (++i < size)
+			action(array[i]);
+	}
 }
