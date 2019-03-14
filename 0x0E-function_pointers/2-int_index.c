@@ -8,22 +8,16 @@
  *
  * Return: return index number on success, (-1) if fail
  */
-
 int int_index(int *array, int size, int (*cmp)(int))
 {
-	int i, res;
-	int (*fun_ptr)(int);
+	int i;
 
-	i = 0;
-	fun_ptr = cmp;
-	if (size <= 0)
+	i = -1;
+	if (size <= 0 || !(array) || !(cmp))
 		return (-1);
-	while (i < size)
+	while (++i < size)
 	{
-		res = fun_ptr(array[i]);
-		if (res == 0)
-			i++;
-		else
+		if (cmp(array[i]))
 			return (i);
 	}
 	return (-1);
