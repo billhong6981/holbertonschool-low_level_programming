@@ -15,8 +15,6 @@ int main(int argc, char **argv)
 	int a, i;
 
 	pf = &main;
-	if (pf == NULL)
-		exit(1);
 	if (argc != 2)
 	{
 		printf("Error\n");
