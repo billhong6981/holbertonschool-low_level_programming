@@ -11,10 +11,9 @@
 
 int main(int argc, char **argv)
 {
-	int (*pf)(int, char **);
 	int a, i;
 
-	pf = &main;
+	i = -1;
 	if (argc != 2)
 	{
 		printf("Error\n");
@@ -26,8 +25,8 @@ int main(int argc, char **argv)
 		printf("Error\n");
 		exit(2);
 	}
-	for (i = 0; i < a; i++)
-		printf("%02x ", ((unsigned char *)pf)[i]);
+	while (++i < a)
+		printf("%02x ", ((unsigned char *)main)[i]);
 	printf("\n");
 	return (0);
 }
