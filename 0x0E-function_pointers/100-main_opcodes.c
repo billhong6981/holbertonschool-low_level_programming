@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 		printf("Error\n");
 		exit(2);
 	}
-	while (++i < a)
+	while (++i < a && main)
 		printf("%02x ", ((unsigned char *)main)[i]);
 	printf("\n");
 	return (0);
