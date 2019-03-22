@@ -1,15 +1,22 @@
-org 100h
+section .data
+	msg db 'Hello, Holberton', 0xa ;\n
+	len equ $ - msg
 
-.DATA
-	msg DB 'Hello Holberton\n'
+section .bss
+	num resb 5
 
-.CODE
-MAIN PROC
-	MOV AX @DATA
-	MOV DS, AX
-	LEA DX, msg
-	MOV AH, 09H
-	INT 21H
-	END MAIN
+section .text
+	global main
 
-ret
+main:
+	; output the message
+	mov eax, 4  		;system write
+	mov ebx, 1  		;system stdout
+	mov ecx, msg
+	mov edx, len
+	int 0x80  		;sys call
+
+	; Exit code
+	mov eax, 1
+	mov ebx, 0
+	int 0x80
