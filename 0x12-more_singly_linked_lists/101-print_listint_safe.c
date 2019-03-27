@@ -10,13 +10,17 @@
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t count = 0;
-	size_t count1 = 0;
-	const listint_t *hare, *tortoise;
+	size_t count2 = 0, count = 1;
+	size_t n, count1 = 0;
+	const listint_t *hare, *tortoise, *current;
 
 	if (head == NULL)
 		exit(98);
-	count++;
+	if (head->next == NULL || head->next == head)
+	{
+		printf("[%p] %d\n", (void *)head, head->n);
+		return (1);
+	}
 	tortoise = head;
 	hare = head->next;
 	while (hare != NULL && hare != tortoise)
@@ -37,16 +41,34 @@ size_t print_listint_safe(const listint_t *head)
 			printf("[%p] %d\n", (void *)head, head->n);
 			head = head->next;
 		}
+		printf("count:%lu\n", count);
 		return (count);
 	}
-	else
+	current = head;
+	for (count1 = 0; current != tortoise; count1++)
+		current = current->next;
+	current = head;
+	while (1)
 	{
-		for (count1 = 0; count1 <= (count / 2 + 2); count1++)
+		if (current == hare)
+			break;
+		current = current->next;
+		hare = tortoise->next;
+		count2++;
+		while (hare != tortoise)
 		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			head = head->next;
+			hare = hare->next;
+			if (current == hare)
+				break;
 		}
-		printf("-> [%p] %d\n", (void *)head, head->n);
-		return (count / 2 + 3);
 	}
+	n = count - count1 + count2;
+	printf("count:%lu, count1:%lu, count2:%lu, n:%lu\n", count, count1, count2, n);
+	for (count1 = 0; count1 < n; count1++)
+	{
+		printf("[%p] %d\n", (void *)head, head->n);
+		head = head->next;
+	}
+	printf("-> [%p] %d\n", (void *)head, head->n);
+	return (n);
 }
