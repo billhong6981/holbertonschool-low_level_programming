@@ -41,7 +41,6 @@ size_t print_listint_safe(const listint_t *head)
 			printf("[%p] %d\n", (void *)head, head->n);
 			head = head->next;
 		}
-		printf("count:%lu\n", count);
 		return (count);
 	}
 	current = head;
@@ -63,7 +62,6 @@ size_t print_listint_safe(const listint_t *head)
 		}
 	}
 	n = count - count1 + count2;
-	printf("count:%lu, count1:%lu, count2:%lu, n:%lu\n", count, count1, count2, n);
 	for (count1 = 0; count1 < n; count1++)
 	{
 		printf("[%p] %d\n", (void *)head, head->n);
