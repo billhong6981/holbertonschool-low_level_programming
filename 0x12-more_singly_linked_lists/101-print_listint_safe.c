@@ -16,11 +16,6 @@ size_t print_listint_safe(const listint_t *head)
 
 	if (head == NULL)
 		exit(98);
-	if (head->next == NULL || head->next == head)
-	{
-		printf("[%p] %d\n", (void *)head, head->n);
-		return (1);
-	}
 	tortoise = head;
 	hare = head->next;
 	while (hare != NULL && hare != tortoise)
