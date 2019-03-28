@@ -10,13 +10,11 @@
  */
 size_t free_listint_safe(listint_t **h)
 {
-	size_t count = 0;
-	size_t count1 = 0;
-	listint_t *hare, *tortoise, *nextnode;
+	size_t n, count = 1, count1 = 0, count2 = 0;
+	listint_t *hare, *tortoise, *current;
 
-	if (h == NULL)
+	if (h == NULL || (*h) == NULL)
 		return (0);
-	count++;
 	tortoise = (*h);
 	hare = (*h)->next;
 	while (hare != NULL && hare != tortoise)
@@ -35,17 +33,34 @@ size_t free_listint_safe(listint_t **h)
 		free_listint2(h);
 		return (count);
 	}
-	else
+	current = (*h);
+	for (count1 = 0; current != tortoise; count1++)
+		current = current->next;
+	current = (*h);
+	while (1)
 	{
-		for (count1 = 0; count1 < (count / 2 + 1); count1++)
+		if (current == hare)
+			break;
+		current = current->next;
+		hare = tortoise->next;
+		count2++;
+		while (hare != tortoise)
 		{
-			nextnode = (*h)->next;
-			free(*h);
-			(*h) = nextnode;
+			hare = hare->next;
+			if (current == hare)
+				break;
 		}
-		(*h) = NULL;
-		return (count / 2 + 1);
 	}
+	n = count - count1 + count2;
+
+	for (count1 = 0; count1 < n; count1++)
+	{
+		current = (*h)->next;
+		free(*h);
+		(*h) = current;
+	}
+	(*h) = NULL;
+	return (n);
 }
 
 /**
