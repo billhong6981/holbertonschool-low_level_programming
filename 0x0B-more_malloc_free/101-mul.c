@@ -89,8 +89,7 @@ int main(int argc, char *argv[])
 	_strrev(str2);
 	for (j = 0; j < len2; j++)
 	{
-		carry = 0;
-		for (i = 0; i < len1; i++)
+		for (i = 1; i < len1; i++)
 		{
 			if (j == 0)
 			{
@@ -108,12 +107,7 @@ int main(int argc, char *argv[])
 			}
 		}
 		if (carry != 0 && j == 0)
-		{
 			temp2[i] = carry + '0';
-			temp2[++i] = '\0';
-		}
-		if (carry == 0 && j == 0)
-			temp2[i] = '\0';
 		if (carry != 0 && j != 0)
 		{
 			temp1[i] = carry + '0';
@@ -121,18 +115,28 @@ int main(int argc, char *argv[])
 		}
 		if (carry == 0 && j != 0)
 			temp1[i] = '\0';
-		mul[j] = temp2[0];
-
 		/** temp2[] shift one digit to left **/
-		temp2 = shift_left(temp2);
-
+		if (temp1 != NULL)
+		{
+			mul[j] = temp2[0];
+			temp2 = shift_left(temp2);
+		}
 		/** temp2[] = temp1[] + temp2[] **/
-		temp2 = infinite_add(temp1, temp2);
+		if (temp2 != NULL && temp1 != NULL)
+			temp2 = infinite_add(temp1, temp2);
 	}
 	/** append temp[] to mul[] **/
-	for (i = 0; temp2[i] != '\0'; j++, i++)
-		mul[j] = temp2[i];
-	mul[j] = '\0';
+	if ( temp1 == NULL)
+	{
+		for (i = 0; i < len1 + 1; i++)
+			mul[i] = temp2[i];
+	}
+	else
+	{
+		for (i = 0; i < len1 + 1; j++, i++)
+			mul[j] = temp2[i];
+	}
+
 	/** revert mul[]   **/
 	_strrev(mul);
 	for (i = 0; mul[i] != '\0'; i++)
