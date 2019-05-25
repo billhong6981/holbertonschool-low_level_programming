@@ -4,8 +4,8 @@
 
 int win_nums()
 {
-	int win[] = {1, 4, 7, 14, 17, 45};
+	static int i;
+	int win[] = {9, 8, 10, 24, 75, 9};
 
-	srand(time(0));
-	return (win[rand() % 6]);
+	return (win[i++ % 6]);
 }
