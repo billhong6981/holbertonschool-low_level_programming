@@ -1,0 +1,47 @@
+#include "hash_tables.h"
+/**
+ * hash_table_create - a function that creates hash table
+ * @size: size of table
+ * Return: return the address of the hash table
+ */
+hash_table_t *hash_table_create(unsigned long int size)
+{
+	hash_table_t *h_t;
+	hash_node_t *new_node;
+
+	if (size <= 0)
+		return (NULL);
+	h_t = malloc(sizeof(hash_table_t) * 1);
+	if (!h_t)
+		return (NULL);
+	new_node = malloc(sizeof(hash_node_t) * 1);
+	if (!new_node)
+	{
+		free(h_t);
+		return (NULL);
+	}
+	h_t->array = &new_node;
+	h_t->size = size;
+	new_node->key = NULL;
+	new_node->value = NULL;
+	new_node->next = NULL;
+	return (h_t);
+}
+
+/**
+ * free_node - frees allocated memory
+ * @head: points to head of linked list
+ * Return: void
+ */
+void free_node(hash_node_t **head)
+{
+	hash_node_t *current, *next;
+
+	current = *head;
+	while (current)
+	{
+		next = current;
+		current = current->next;
+		free(next);
+	}
+}
