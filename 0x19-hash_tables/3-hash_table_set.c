@@ -11,7 +11,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	hash_node_t *next_node, *temp;
 	unsigned long int idx;
 
-	if (!key)
+	if (!key || !ht)
 		return (0);
 	idx = key_index((unsigned const char *)key, ht->size);
 	if ((ht->array)[idx] != NULL)
@@ -51,7 +51,8 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 hash_node_t *add_new_node(const char *key, const char *value)
 {
 	hash_node_t *new_node;
-
+	if (!key)
+		return (NULL);
 	new_node = malloc(sizeof(hash_node_t));
 	if (!new_node)
 		return (NULL);
@@ -60,23 +61,4 @@ hash_node_t *add_new_node(const char *key, const char *value)
 	new_node->key = strdup(key);
 	new_node->next = NULL;
 	return (new_node);
-}
-
-/**
- * node_travisal - a function returns the number of node current have
- * @head: point to head of linked list
- * Return: the number of nodes
- */
-unsigned long int node_travisal(hash_node_t **head)
-{
-	unsigned long int i = 0;
-	hash_node_t *current;
-
-	current = *head;
-	while (current)
-	{
-		current = current->next;
-		i++;
-	}
-	return (i);
 }
