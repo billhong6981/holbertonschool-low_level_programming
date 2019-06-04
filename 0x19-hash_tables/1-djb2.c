@@ -9,6 +9,8 @@ unsigned long int hash_djb2(const unsigned char *str)
 	unsigned long int hash;
 	int c;
 
+	if (!str)
+		return (EXIT_FAILURE);
 	hash = 5381;
 	while ((c = *str++))
 	{
