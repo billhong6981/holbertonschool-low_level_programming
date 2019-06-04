@@ -1,4 +1,4 @@
-#include "hash_table.h"
+#include "hash_tables.h"
 /**
  * hash_djb2 - a function that generates hash number
  * @str: a string
