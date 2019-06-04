@@ -18,7 +18,7 @@ void hash_table_delete(hash_table_t *ht)
 		if (h[i] != NULL)
 			free_node(h[i]);
 	}
-        free(ht->array);
+	free(ht->array);
 	free(ht);
 }
 

@@ -62,7 +62,7 @@ int next_node(hash_node_t *head)
 /**
  * not_last - checks whether the node is last or not
  * @ht: point to hash table
- * @J: index number
+ * @j: index number
  * Return: return 1 if isn't the last empty node, otherwise o
  */
 int not_last(const hash_table_t *ht, unsigned long int j)
