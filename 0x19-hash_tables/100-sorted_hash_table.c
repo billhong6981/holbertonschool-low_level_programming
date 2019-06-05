@@ -184,7 +184,7 @@ shash_node_t *add_new_n(shash_table_t *ht, const char *key, const char *value)
 
 	if (!key || !ht)
 		return (NULL);
-	new_node = malloc(sizeof(hash_node_t));
+	new_node = malloc(sizeof(shash_node_t));
 	if (!new_node)
 		return (NULL);
 	if (value)
