@@ -41,7 +41,7 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 	shash_node_t *next_node, *temp;
 	unsigned long int idx;
 
-	if (!key || !ht)
+	if (!ht || !key)
 		return (0);
 	idx = key_index((unsigned const char *)key, ht->size);
 	if ((ht->array)[idx] != NULL)
@@ -147,6 +147,7 @@ shash_node_t *add_in_between(shash_node_t *current, shash_node_t *new_node)
 	current->sprev->snext = new_node;
 	new_node->snext = current;
 	new_node->sprev = current->sprev;
+	current->sprev = new_node;
 	return (new_node);
 }
 
@@ -188,8 +189,24 @@ shash_node_t *add_new_n(shash_table_t *ht, const char *key, const char *value)
 	if (!new_node)
 		return (NULL);
 	if (value)
+	{
 		new_node->value = strdup(value);
-	new_node->key = strdup(key);
+		if (!new_node->value)
+		{
+			free(new_node);
+			return (NULL);
+		}
+	}
+	if (key)
+	{
+		new_node->key = strdup(key);
+		if (!new_node->key)
+		{
+			free(new_node);
+			free(new_node->value);
+			return (NULL);
+		}
+	}
 	new_node->next = NULL;
 	new_node->sprev = NULL;
 	new_node->snext = NULL;
@@ -232,9 +249,9 @@ void shash_table_print(const shash_table_t *ht)
 {
 	shash_node_t *current;
 
-	current = ht->shead;
 	if (!ht)
 		return;
+	current = ht->shead;
 	if (!current)
 	{
 		printf("{}\n");
@@ -261,9 +278,9 @@ void shash_table_print_rev(const shash_table_t *ht)
 {
 	shash_node_t *current;
 
-	current = ht->stail;
 	if (!ht)
 		return;
+	current = ht->stail;
 	if (!current)
 	{
 		printf("{}\n");
@@ -273,7 +290,9 @@ void shash_table_print_rev(const shash_table_t *ht)
 	while (current)
 	{
 		printf("'%s': '%s'", current->key, current->value);
-		if (current == ht->shead)
+		if (current != ht->shead)
+			printf(", ");
+		else
 			printf("}\n");
 		current = current->sprev;
 	}
@@ -288,9 +307,9 @@ void shash_table_delete(shash_table_t *ht)
 {
 	shash_node_t *current, *nxt;
 
-	current = ht->shead;
 	if (!ht)
 		return;
+	current = ht->shead;
 	if (!current)
 	{
 		free(ht->array);
@@ -301,7 +320,8 @@ void shash_table_delete(shash_table_t *ht)
 	{
 		nxt = current;
 		current = current->snext;
-		free(nxt->value);
+		if (nxt->value)
+			free(nxt->value);
 		free(nxt->key);
 		free(nxt);
 	}
