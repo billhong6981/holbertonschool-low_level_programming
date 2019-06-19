@@ -60,17 +60,15 @@ size_t partition(int *array, size_t size, size_t low, size_t high)
  */
 void quick_sort_3args(int *array, size_t size, size_t low, size_t high)
 {
-	size_t p = 0;
+	size_t p;
 
-	if (low < high)
-	{
-		p = partition(array, size, low, high);
-		if (p != 0)
-			quick_sort_3args(array, size, low, p - 1);
-		if (p != high)
-			quick_sort_3args(array, size, p + 1, high);
-	}
-
+	if (low >= high )
+		return;
+	p = partition(array, size, low, high);
+	if (p != 0)
+		quick_sort_3args(array, size, low, p - 1);
+	if (p != high)
+		quick_sort_3args(array, size, p + 1, high);
 }
 
 /**
@@ -81,11 +79,7 @@ void quick_sort_3args(int *array, size_t size, size_t low, size_t high)
  */
 void quick_sort(int *array, size_t size)
 {
-	size_t low, high;
-
 	if (size < 2)
 		return;
-	low = 0;
-	high = size - 1;
-	quick_sort_3args(array, size, low, high);
+	quick_sort_3args(array, size, 0, size - 1);
 }
