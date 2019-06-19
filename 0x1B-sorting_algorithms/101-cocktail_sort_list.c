@@ -60,7 +60,7 @@ void cocktail_sort_list(listint_t **list)
 	listint_t *node_a, *node_b, *current;
 	int flag;
 
-	if (*list == NULL || (*list)->next == NULL)
+	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 	current = *list;
 	while (1)
