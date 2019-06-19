@@ -67,10 +67,15 @@ void quick_sort_3args(int *array, size_t size, size_t low, size_t high)
 	if (low >= high)
 		return;
 	p = partition(array, size, low, high);
-	if (p != 0)
-		quick_sort_3args(array, size, low, p - 1);
-	if (p != high)
+	if (p == 0)
 		quick_sort_3args(array, size, p + 1, high);
+	else if (p == high)
+		quick_sort_3args(array, size, low, p - 1);
+	else
+	{
+		quick_sort_3args(array, size, low, p - 1);
+		quick_sort_3args(array, size, p + 1, high);
+	}
 }
 
 /**
