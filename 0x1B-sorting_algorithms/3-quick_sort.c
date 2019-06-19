@@ -81,7 +81,7 @@ void quick_sort_3args(int *array, size_t size, size_t low, size_t high)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (size < 2)
+	if (!array || size < 2)
 		return;
 	quick_sort_3args(array, size, 0, size - 1);
 }
