@@ -23,18 +23,13 @@ void swap(int *a, int *b)
  */
 void shell_sort(int *array, size_t size)
 {
-	size_t k = 0, i, j, gap, flag;
-	size_t gaps[] = {364, 121, 40, 13, 4, 1, 0};
+	size_t i, j, gap = 1, flag;
 
-	if (size < 2)
+	if (!array || size < 2)
 		return;
-	while (1)
-	{
-		if (gaps[k] < size / 3)
-			break;
-		k++;
-	}
-	for (gap = gaps[k]; gap > 0; gap = gaps[k++])
+	while ((gap * 3) + 1 < size)
+		gap = gap * 3 + 1;
+	for (; gap > 0; gap = (gap - 1) / 3)
 	{
 		flag = 0;
 		for (i = gap; i < size; i++)
