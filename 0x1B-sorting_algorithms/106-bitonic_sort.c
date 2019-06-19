@@ -92,26 +92,41 @@ void bitonic_split(int up, int *array, size_t size, size_t low, size_t cnt)
 	if (cnt < 2) /* one element array */
 		return;          /* recursion exit */
 	k = cnt / 2;  /* continuetly split until 1 */
-	/* recursively call to split until one element */
 	if (up == 1)
+	{
 		printf("Merging [%lu/%lu] (UP):\n", cnt, size);
-	else
+		print_subArr(array, low, low + cnt);
+	}
+	if (up == 0 && low >= size / 2)
+	{
 		printf("Merging [%lu/%lu] (DOWN):\n", cnt, size);
-	print_subArr(array, low, cnt);
-
+		print_subArr(array, cnt, low + cnt);
+	}
 	bitonic_split(1, array, size, low, k); /* left array */
-	if (up == 1)
-		printf("Merging [%lu/%lu] (UP):\n", cnt, size);
-	else
-		printf("Merging [%lu/%lu] (DOWN):\n", cnt, size);
-	print_subArr(array, low, cnt);
 	bitonic_split(0, array, size, low + k, k);   /*right array*/
+	if (up == 1 && low < size / 2)
+	{
+		printf("Merging [%lu/%lu] (UP):\n", cnt, size);
+		print_subArr(array, low, low + cnt);
+	}
+
+	if (up == 0 && low < size / 2)
+	{
+		printf("Merging [%lu/%lu] (DOWN):\n", cnt, size);
+		print_subArr(array, cnt, low + cnt);
+	}
+
 	bitonic_merge(up, array, size, low, cnt);
 	if (up == 1)
+	{
 		printf("Result [%lu/%lu] (UP):\n", cnt, size);
-	else
+		print_subArr(array, low, low + cnt);
+	}
+	if (up == 0)
+	{
 		printf("Result [%lu/%lu] (DOWN):\n", cnt, size);
-	print_subArr(array, low, cnt);
+		print_subArr(array, cnt, low + cnt);
+	}
 }
 /**
  * bitonic_sort - a function

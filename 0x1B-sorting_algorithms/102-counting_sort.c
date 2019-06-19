@@ -9,18 +9,19 @@
  */
 void counting_sort(int *array, size_t size)
 {
-	int *count, output[size];
+	int *count, *output;
 	size_t i, max;
 
 	if (size < 2)
 		return;
 	max = array[0];
-	/* get the max and min value in array */
+	/* get the max and value in array */
 	for (i = 1; i < size; i++)
 	{
 		if (array[i] > (int)max)
-			max = array[i];
+		    max = array[i];
 	}
+	output = malloc(sizeof(int) * (size));
 	count = malloc(sizeof(int) * (max + 1));
 	/* initializes the count[] = {0} */
 	for (i = 0; i < max + 1; i++)
@@ -43,5 +44,6 @@ void counting_sort(int *array, size_t size)
 	}
 	for (i = 0; i < size; i++)
 		array[i] = output[i];
+	free(output);
 	free(count);
 }
