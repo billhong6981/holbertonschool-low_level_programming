@@ -30,7 +30,7 @@ void shell_sort(int *array, size_t size)
 		return;
 	while (1)
 	{
-		if (gaps[k] < size)
+		if (gaps[k] < size / 3)
 			break;
 		k++;
 	}
