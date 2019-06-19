@@ -18,6 +18,7 @@ void swap(int *a, int *b)
 /**
  * partition - partition for quick sort algorithm
  * @array: array need to sort
+ * @size: size
  * @low: low bound index
  * @high: high bound index
  * Return: return pivot index
@@ -46,12 +47,13 @@ size_t partition(int *array, size_t size, size_t low, size_t high)
 		swap(&array[i], &array[high]);
 		print_array(array, size);
 	}
-	return(i);
+	return (i);
 }
 
 /**
  * quick_sort_3args - function takes 3 args
  * @array: array to be sorted
+ * @size: size
  * @low: low bound index
  * @high: high bound index
  * Return: void

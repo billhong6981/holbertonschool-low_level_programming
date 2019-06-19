@@ -4,6 +4,7 @@
  * heapify - a function recursively sorting to get root node largest
  * @array: an array
  * @index: index of node
+ * @heap_size: size of heap
  * @size: size of the heap size
  */
 void heapify(int *array, size_t index, size_t heap_size, size_t size)

@@ -30,7 +30,6 @@ void radix_sort(int *array, size_t size)
 	if (size < 2)
 		return;
 	max = array[0];
-	/* get the max value in array */
 	for (i = 1; i < size; i++)
 	{
 		if (array[i] > (int)max)
@@ -39,24 +38,17 @@ void radix_sort(int *array, size_t size)
 	max_digit = count_digit(max);
 	count = malloc(sizeof(int) * (RADIX + 1));
 	output = malloc(sizeof(int) * size);
-	/* count the occurence of element in array[] */
 	for (placement = 1; placement <= max_digit; placement++)
 	{
-		/* initializes the count[] = {0} */
 		for (i = 0; i < RADIX + 1; i++)
 			count[i] = 0;
-
 		for (i = 0; i < size; i++)
 		{
 			tmp = (array[i] / tens) % RADIX;
 			count[tmp] += 1;
 		}
-
-		/* sum the elements, value changed meants new element occure */
 		for (i = 1; i < RADIX + 1; i++)
 			count[i] = count[i] + count[i - 1];
-
-		/* put the count[] index back to the array to make it sorted */
 		for (i = (size - 1); ; )
 		{
 			output[--count[(array[i] / tens) % RADIX]] = array[i];
@@ -64,8 +56,6 @@ void radix_sort(int *array, size_t size)
 				break;
 			--i;
 		}
-
-		/* put the subordered array back to original array */
 		for (i = 0; i < size; i++)
 			array[i] = output[i];
 		print_array(array, size);

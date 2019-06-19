@@ -2,6 +2,7 @@
 
 /**
  * swap_node - swaps two nodes instead swaps two numbers
+ * @list: head of linked list
  * @node_a: node a
  * @node_b: node b
  * Return: void
@@ -26,7 +27,7 @@ void swap_node(listint_t **list, listint_t **node_a, listint_t **node_b)
 }
 
 /**
- * insertion_sort - sorts a integer of array using insertion sort algorithm
+ * insertion_sort_list - sorts a integer of array using insertion algorithm
  * @list: a integer of doublely linked list
  * Return: void
  */
