@@ -28,8 +28,6 @@ size_t partition(int *array, size_t size, size_t low, size_t high)
 	int pivot;
 	size_t j, i;
 
-	if (low >= high)
-		return (low);
 	pivot = array[high];
 	i = low;
 	j = high - 1;
@@ -37,17 +35,15 @@ size_t partition(int *array, size_t size, size_t low, size_t high)
 	{
 		while (array[j] > pivot)
 		{
-			if (j == low)
+			if (j == 0)
 				break;
-			else
-				j--;
+			j--;
 		}
 		while (array[i] < pivot)
 		{
-			if (i == high)
+			if (i == size)
 				break;
-			else
-				i++;
+			i++;
 		}
 		if (i < j)
 		{
