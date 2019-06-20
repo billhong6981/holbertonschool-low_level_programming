@@ -32,61 +32,60 @@ size_t partition(int *array, size_t size, size_t low, size_t high)
 		return (low);
 	pivot = array[high];
 	i = low;
-	for (j = low; j < high; j++)
+	j = high;
+	while(1)
 	{
-		if (array[j] < pivot)
-		{
-			if (j != i)
-			{
-				swap(&array[i], &array[j]);
-				print_array(array, size);
-			}
+		while (array[i] < pivot)
 			i++;
+
+		while (array[j] > pivot)
+			j--;
+		if (i <= j)
+		{
+			swap(&array[j], &array[i]);
+			print_array(array, size);
 		}
+		if (i != size - 1)
+			i++;
+		if (j != 0)
+			j--;
+		if (i > j)
+			break;
 	}
-	if (i != j)
+	if (i != high)
 	{
-		swap(&array[i], &array[high]);
+		swap(&array[j], &array[high]);
 		print_array(array, size);
 	}
-	return (i);
+	return (j);
 }
-
 /**
- * quick_sort_3args - function takes 3 args
+ * quick_sort_4args - function takes 3 args
  * @array: array to be sorted
  * @size: size
  * @low: low bound index
  * @high: high bound index
  * Return: void
  */
-void quick_sort_3args(int *array, size_t size, size_t low, size_t high)
+void quick_sort_4args(int *array, size_t size, size_t low, size_t high)
 {
 	size_t p;
 
 	if (low >= high)
 		return;
 	p = partition(array, size, low, high);
-	if (p == 0)
-		quick_sort_3args(array, size, p + 1, high);
-	else if (p == high)
-		quick_sort_3args(array, size, low, p - 1);
-        else
-	{
-		quick_sort_3args(array, size, low, p - 1);
-		quick_sort_3args(array, size, p + 1, high);
-	}
+	quick_sort_4args(array, size, low, p);
+	quick_sort_4args(array, size, p + 1, high);
 }
-
 /**
- * quick_sort - sorts a integer of array using quick sort algorithm
+ * quick_sort_hoare - sorts a integer of array using quick sort algorithm
  * @array: a integer of array
  * @size: size of array
  * Return: void
  */
-void quick_sort(int *array, size_t size)
+void quick_sort_hoare(int *array, size_t size)
 {
 	if (!array || size < 2)
 		return;
-	quick_sort_3args(array, size, 0, size - 1);
+	quick_sort_4args(array, size, 0, size - 1);
 }
