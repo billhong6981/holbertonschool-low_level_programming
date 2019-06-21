@@ -125,5 +125,7 @@ void cocktail_sort_list(deck_node_t **list)
  */
 void sort_deck(deck_node_t **deck)
 {
+	if (deck == NULL || *deck == NULL || !(*deck)->next)
+		return;
 	cocktail_sort_list(deck);
 }
