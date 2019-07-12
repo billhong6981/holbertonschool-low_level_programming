@@ -1,0 +1,21 @@
+CC=gcc
+SRC = main.c holberton.c
+NAME = holberton
+OBJ = $(SRC:.c=.o)
+DEPS = "m.h"
+CFLAGS = -Wall -Werror -Wextra -pedantic
+ifneq ("$(wildcard m.h)", "")
+all: $(OBJ)
+	$(CC) $^ -o $(NAME)
+
+.PHONY: clean oclean fclean re
+clean:
+	$(RM) *~ $(NAME)
+
+oclean:
+	$(RM) $(OBJ)
+
+fclean: clean oclean
+
+re: oclean all
+endif
