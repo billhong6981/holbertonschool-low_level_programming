@@ -16,21 +16,34 @@ int internal_node(const binary_tree_t *tree)
 }
 
 /**
- * leaves_same_level - checks all the leaves at the same level
+ * leaves_height_top - checks all the leaves at the same level
  * @tree: node of the tree
- * @same_level: 1 is same level, otherwise 0
  * Return: height of tree
  */
-int leaves_same_level(const binary_tree_t *tree, int *same_level)
+int leaves_height_top(const binary_tree_t *tree)
 {
 	int left_height, right_height;
 
 	if (!tree)
 		return (0);
-	left_height = leaves_same_level(tree->left, same_level) + 1;
-	right_height = leaves_same_level(tree->right, same_level) + 1;
-	*same_level = (left_height == right_height ? 1 : 0);
+	left_height = leaves_height_top(tree->left) + 1;
+	right_height = leaves_height_top(tree->right) + 1;
 	return (left_height > right_height ? left_height : right_height);
+}
+/**
+ * leaves_height_low - checks all the leaves at the same level
+ * @tree: node of the tree
+ * Return: height of tree
+ */
+int leaves_height_low(const binary_tree_t *tree)
+{
+	int left_height, right_height;
+
+	if (!tree)
+		return (0);
+	left_height = leaves_height_low(tree->left) + 1;
+	right_height = leaves_height_low(tree->right) + 1;
+	return (left_height > right_height ? right_height : left_height);
 }
 
 /**
@@ -42,13 +55,16 @@ int leaves_same_level(const binary_tree_t *tree, int *same_level)
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	int two_children, same_level = 0;
+	int two_children, level_top, level_low;
 
 	if (!tree)
 		return (0);
+	level_top = leaves_height_top(tree);
+	level_low = leaves_height_low(tree);
+	if (level_top != level_low)
+		return (0);
 	two_children = internal_node(tree);
-	leaves_same_level(tree, &same_level);
-	if (two_children && same_level)
+	if (two_children)
 		return (1);
 	return (0);
 }
