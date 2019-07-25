@@ -2,6 +2,7 @@
 /**
  * look_up - a function look up the same value in BST
  * @tree: a pointer to root of BST
+ * @value: a value to be look up
  * Return: return 1 if found the same value, otherwise 0
  */
 int look_up(bst_t *tree, int value)
@@ -17,6 +18,7 @@ int look_up(bst_t *tree, int value)
 /**
  * node_insert - find the propert node to insert
  * @root: the root of BST
+ * @new_node: a new node to be added to tree
  * @value: value given to insert to BST
  * Return: reture the propert node to be insert
  */

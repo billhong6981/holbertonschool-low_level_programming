@@ -16,7 +16,13 @@ static size_t _height(const binary_tree_t *tree)
 	height_r = tree->right ? 1 + _height(tree->right) : 0;
 	return (height_l > height_r ? height_l : height_r);
 }
-
+/**
+ * print_Given_Level - prints level order
+ * @root: a pointer to root of tree
+ * @level: level of tree
+ * @func: point to function
+ * Return: void
+ */
 
 void print_Given_Level(const binary_tree_t *root, int level, void (*func)(int))
 {
@@ -26,8 +32,8 @@ void print_Given_Level(const binary_tree_t *root, int level, void (*func)(int))
 		func(root->n);
 	else if (level > 1)
 	{
-		print_Given_Level(root->left, level-1, func);
-		print_Given_Level(root->right, level-1, func);
+		print_Given_Level(root->left, level - 1, func);
+		print_Given_Level(root->right, level - 1, func);
 	}
 }
 

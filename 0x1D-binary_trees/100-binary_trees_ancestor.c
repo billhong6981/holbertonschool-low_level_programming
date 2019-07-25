@@ -42,6 +42,8 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 	}
 	while (first != second)
 	{
+		if (!first || !second)
+			return (NULL);
 		first = first->parent;
 		second = second->parent;
 	}

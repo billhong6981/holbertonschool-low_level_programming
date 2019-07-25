@@ -15,17 +15,16 @@ int count_node(const binary_tree_t *tree)
  * @tree: point to root of tree
  * @index: a given index to the current node
  * @number_nodes: size of tree
- * Reture: return 1 if tree is complete, otherwise 0
+ * Return: return 1 if tree is complete, otherwise 0
  */
 int is_complete(const binary_tree_t *tree, int index, int number_nodes)
 {
 	if (!tree)
 		return (1);
-        /* if index assigned to current node is more than number of node */
 	if (index >= number_nodes)
 		return (0);
-	return (is_complete(tree->left, 2*index + 1, number_nodes) *
-		is_complete(tree->right, 2*index + 2, number_nodes));
+	return (is_complete(tree->left, 2 * index + 1, number_nodes) *
+		is_complete(tree->right, 2 * index + 2, number_nodes));
 }
 
 /**
