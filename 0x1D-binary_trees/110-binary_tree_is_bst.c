@@ -10,7 +10,7 @@ int look_up_left(const binary_tree_t *tree, int value)
 {
 	if (!tree)
 		return (1);
-	if (value < tree->n)
+	if (value <= tree->n)
 		return (0);
 	return (look_up_left(tree->left, value) *
 		look_up_left(tree->right, value));
@@ -25,7 +25,7 @@ int look_up_right(const binary_tree_t *tree, int value)
 {
 	if (!tree)
 		return (1);
-	if (value > tree->n)
+	if (value >= tree->n)
 		return (0);
 	return (look_up_right(tree->left, value) *
 		look_up_right(tree->right, value));
@@ -45,9 +45,6 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 		return (look_up_right(tree->right, tree->n));
 	if (!tree->right && tree->left)
 		return (look_up_left(tree->left, tree->n));
-	if (tree->left && tree->right)
-		return (look_up_left(tree->left, tree->n) *
+	return (look_up_left(tree->left, tree->n) *
 			look_up_right(tree->right, tree->n));
-	else
-		return (0);
 }
