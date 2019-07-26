@@ -48,6 +48,6 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 	if (tree->left && tree->right)
 		return (look_up_left(tree->left, tree->n) *
 			look_up_right(tree->right, tree->n));
-	return (binary_tree_is_bst(tree->left) *
-		binary_tree_is_bst(tree->right));
+	else
+		return (0);
 }
