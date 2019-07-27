@@ -17,6 +17,32 @@ bst_t *bst_search(const bst_t *tree, int value)
 	return (bst_search(tree->right, value));
 }
 /**
+ * _is_right - wiring when delete node only has right child
+ * @root: pointer to root of BST
+ * @del_node: a node need to delete
+ * Return: returns the new root of BST
+ */
+bst_t *_is_right(bst_t *root, bst_t *del_node)
+{
+	if (root == del_node)
+	{
+		root = del_node->right;
+		del_node->right->parent = NULL;
+		del_node->right->left = del_node->left;
+		free(del_node);
+		return (root);
+	}
+	if (del_node->parent->left == del_node)
+		del_node->parent->left = del_node->right;
+	if (del_node->parent->right == del_node)
+		del_node->parent->right = del_node->right;
+	del_node->right->parent = del_node->parent;
+	del_node->right->left = del_node->left;
+	free(del_node);
+	return (root);
+}
+
+/**
  * _two_children - swap two node
  * @root: a pointer to root of tree
  * @del_node: the node to be removed
@@ -29,6 +55,8 @@ bst_t *_two_children(bst_t *root, bst_t *del_node)
 	if (!root || !del_node)
 		return (NULL);
 	right_node = del_node->right;
+	if (right_node->left == NULL)
+		return (_is_right(root, del_node));
 	while (right_node->left)
 		right_node = right_node->left;
 	if (!right_node->left && !right_node->right)
@@ -49,31 +77,6 @@ bst_t *_two_children(bst_t *root, bst_t *del_node)
 	}
 	else
 		root = right_node;
-	free(del_node);
-	return (root);
-}
-/**
- * _is_right - wiring when delete node only has right child
- * @root: pointer to root of BST
- * @del_node: a node need to delete
- * Return: returns the new root of BST
- */
-bst_t *_is_right(bst_t *root, bst_t *del_node)
-{
-	if (!root || !del_node)
-		return (NULL);
-	if (root == del_node)
-	{
-		root = del_node->right;
-		del_node->right->parent = NULL;
-		free(del_node);
-		return (root);
-	}
-	if (del_node->parent->left == del_node)
-		del_node->parent->left = del_node->right;
-	if (del_node->parent->right == del_node)
-		del_node->parent->right = del_node->right;
-	del_node->right->parent = del_node->parent;
 	free(del_node);
 	return (root);
 }
@@ -132,8 +135,6 @@ bst_t *bst_remove(bst_t *root, int value)
 		free(del_node);
 		return (root);
 	}
-	if (!del_node->left)
-		return (_is_right(root, del_node));
 	if (!del_node->right)
 		return (_is_left(root, del_node));
 	return (_two_children(root, del_node));
